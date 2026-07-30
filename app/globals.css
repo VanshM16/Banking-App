@@ -181,7 +181,6 @@
   .profile-email {
     @apply text-16 font-normal text-gray-600;
   }
-
   .banks {
     @apply flex flex-col justify-between gap-8 px-6 py-8;
   }
