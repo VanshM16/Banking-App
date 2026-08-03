@@ -17,24 +17,22 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import CustomInput from './CustomInput'
-import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { signIn, signUp } from '@/lib/actions/user.actions'
+import { authFormSchema, type AuthFormValues } from '@/lib/utils'
 
-
-
-const AuthForm = ({ type }: { type: string }) => {
+const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
   const router=useRouter();
   const formSchema=authFormSchema(type);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<AuthFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password:""
+      password: "",
     },
   })
 
@@ -197,6 +195,3 @@ const AuthForm = ({ type }: { type: string }) => {
 
 export default AuthForm
 
-function newUser(prevState: null): null {
-    throw new Error('Function not implemented.')
-}

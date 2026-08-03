@@ -195,18 +195,19 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
-export const authFormSchema =(type:string)=> z.object({
-  //sign-up
-  firstName: type==='sign-in' ? z.string().optional(): z.string().min(3),
-  lastName: type==='sign-in' ? z.string().optional(): z.string().min(3),
-  address1: type==='sign-in' ? z.string().optional(): z.string().max(50),
-  state: type==='sign-in' ? z.string().optional(): z.string().min(3),
-  country: type==='sign-in' ? z.string().optional(): z.string().min(3),
-  pinCode: type==='sign-in' ? z.string().optional(): z.string().min(3),
-  dateOfBirth: type==='sign-in' ? z.string().optional(): z.string().min(3),
-  panNumber: type==='sign-in' ? z.string().optional(): z.string().min(3),
-  
-  //both
+
+// lib/utils.ts
+export const authFormSchema = (type: 'sign-in' | 'sign-up') => z.object({
+  firstName: type === 'sign-in' ? z.string().optional() : z.string().min(3),
+  lastName: type === 'sign-in' ? z.string().optional() : z.string().min(3),
+  address1: type === 'sign-in' ? z.string().optional() : z.string().max(50),
+  state: type === 'sign-in' ? z.string().optional() : z.string().min(3),
+  country: type === 'sign-in' ? z.string().optional() : z.string().min(3),
+  pinCode: type === 'sign-in' ? z.string().optional() : z.string().min(3),
+  dateOfBirth: type === 'sign-in' ? z.string().optional() : z.string().min(3),
+  panNumber: type === 'sign-in' ? z.string().optional() : z.string().min(3),
   email: z.string().email(),
   password: z.string().min(8),
 })
+
+export type AuthFormValues = z.infer<ReturnType<typeof authFormSchema>>
